@@ -1,0 +1,31 @@
+name: Deploy Application
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Log in to Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Build and Push Docker Image
+        run: |
+          docker-compose -f docker-compose.yml up --build -d
+
+      - name: Deploy to Azure
+        uses: azure/cli@v1
+        with:
+          inlineScript: |
+            az webapp create --resource-group YourResourceGroup --plan YourAppServicePlan --name YourAppName --deployment-container-image-name YourDockerImageURL
