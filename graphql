@@ -1,0 +1,16 @@
+Reachify-Full-Stack-Assignment
+├── backend
+│   ├── main.py                
+│   ├── models.py              
+│   ├── auth.py                
+│   └── Dockerfile             
+├── frontend
+│   ├── public
+│   ├── src
+│   │   ├── App.js             
+│   │   ├── components
+│   │   │   └── Item.js        
+│   │   ├── api.js            
+│   │   └── index.js           
+│   └── Dockerfile             
+└── docker-compose.yml     
